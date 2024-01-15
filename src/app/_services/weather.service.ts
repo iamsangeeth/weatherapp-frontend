@@ -17,4 +17,9 @@ export class WeatherService {
   getForecastData(locationKey: number): Observable<any> {
     return this.http.get(API_URL + 'forecast?locationKey=' + locationKey)
   }
+
+  getCurrentConfitions(locationKey: number): Observable<any> {
+    return this.http.get(API_URL + 'currentcondition?locationKey=' + locationKey)
+  }
+
 }

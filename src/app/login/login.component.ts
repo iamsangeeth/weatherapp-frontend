@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: any = {
-    name: null,
+    email: null,
     password: null
   };
   isLoggedIn = false;
@@ -28,14 +28,16 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const { name, password } = this.form;
+    const { email, password } = this.form;
 
-    this.authService.login(name, password).subscribe({
+    this.authService.login(email, password).subscribe({
       next: data => {
         this.storageService.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.router.navigate(['/'])
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload();
+        });
       },
       error: err => {
         this.errorMessage = err.error.message;
